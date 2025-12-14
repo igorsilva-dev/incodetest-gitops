@@ -13,7 +13,7 @@ spec:
   source:    
     repoURL: oci://ghcr.io/igorsilva-dev/go-htmx-fiber
     chart: go-htmx-fiber
-    targetRevision: latest
+    targetRevision: 0.1.0
     helm:      
       releaseName: go-htmx-fiber-dev
 
