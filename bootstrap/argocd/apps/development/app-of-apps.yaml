@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/igorsilva-dev/incodetest-gitops
     targetRevision: main
-    path: apps/dev
+    path: apps/development
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
