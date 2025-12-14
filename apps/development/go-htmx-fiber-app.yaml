@@ -11,7 +11,7 @@ spec:
   project: default
 
   source:    
-    repoURL: oci://ghcr.io/igorsilva-dev/go-htmx-fiber
+    repoURL: https://igorsilva-dev.github.io/go_htmx_fiber_fullstack
     chart: go-htmx-fiber
     targetRevision: latest
     helm:      
