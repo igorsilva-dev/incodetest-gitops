@@ -1,112 +1,31 @@
 ---
-# Argo CD Application for Go + Fiber + HTMX Application (Development)
-# This application deploys the go-htmx-fiber Helm chart from the GitHub repository
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: go-htmx-fiber-dev
   namespace: argocd
-  # Finalizer ensures proper cleanup when the app is deleted
+  
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-spec:
-  # Reference to the Argo CD project
+spec:  
   project: default
 
-  source:
-    # Repository containing the Helm chart
-    repoURL: https://github.com/igorsilva-dev/go_htmx_fiber_fullstack
-    # Branch to track
-    targetRevision: main
-    # Path to the Helm chart
-    path: helm/go-htmx-fiber
-
-    # Helm configuration
-    helm:
-      # Release name for the Helm deployment
+  source:    
+    repoURL: https://github.com/igorsilva-dev/go_htmx_fiber_fullstack    
+    targetRevision: main    
+    path: helm/go-htmx-fiber    
+    helm:      
       releaseName: go-htmx-fiber-dev
 
-      # Helm values for development environment
-      values: |
-        # Replica count for development
-        replicaCount: 1
-
-        # Image configuration
-        image:
-          repository: ghcr.io/igorsilva-dev/go_htmx_fiber_fullstack
-          pullPolicy: IfNotPresent
-          tag: "latest"  # Use specific version in production
-
-        # Service configuration
-        service:
-          type: ClusterIP
-          port: 80
-          targetPort: 8080
-
-        # Ingress configuration (optional)
-        ingress:
-          enabled: false
-          # className: "nginx"
-          # annotations:
-          #   cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          # hosts:
-          #   - host: go-htmx-fiber.dev.example.com
-          #     paths:
-          #       - path: /
-          #         pathType: Prefix
-          # tls:
-          #   - secretName: go-htmx-fiber-tls
-          #     hosts:
-          #       - go-htmx-fiber.dev.example.com
-
-        # Resources for development
-        resources:
-          limits:
-            cpu: 500m
-            memory: 512Mi
-          requests:
-            cpu: 250m
-            memory: 256Mi
-
-        # Environment variables
-        env:
-          - name: ENVIRONMENT
-            value: "development"
-          - name: LOG_LEVEL
-            value: "debug"
-          # Add more environment variables as needed:
-          # - name: DATABASE_URL
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: go-htmx-fiber-secrets
-          #       key: database-url
-          # - name: CSRF_SECRET
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: go-htmx-fiber-secrets
-          #       key: csrf-secret
-
-      # Alternatively, reference a values file in the repository:
-      # valuesFiles:
-      #   - values-dev.yaml
-
-  # Deployment destination
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev
-
-  # Sync policy for automatic synchronization
-  syncPolicy:
-    # Automatic sync configuration
+    namespace: go-htmx-fiber  
+  syncPolicy:    
     automated:
-      prune: true      # Delete resources removed from Helm chart
-      selfHeal: true   # Resync every 3 minutes if cluster state diverges
-
-    # Sync options
+      prune: true
+      selfHeal: true   
     syncOptions:
-      - CreateNamespace=true  # Create namespace if it doesn't exist
-
-    # Retry strategy for failed syncs
+      - CreateNamespace=true
     retry:
       limit: 5
       backoff:
@@ -114,15 +33,4 @@ spec:
         factor: 2
         maxDuration: 3m
 
-  # Notification settings (optional)
-  # You can add custom metadata for notifications
-  # metadata:
-  #   notifications.argoproj.io/subscribe.on-sync-failed.slack: my-channel
-
-  # Ignore certain differences (optional)
-  # Useful for ignoring differences that don't matter
-  # ignoreDifferences:
-  #   - group: apps
-  #     kind: Deployment
-  #     jsonPointers:
-  #       - /spec/replicas
+  
