@@ -13,7 +13,7 @@ spec:
   source:    
     repoURL: https://igorsilva-dev.github.io/go_htmx_fiber_fullstack
     chart: go-htmx-fiber
-    targetRevision: latest
+    targetRevision: "*"
     helm:      
       releaseName: go-htmx-fiber-dev
 
