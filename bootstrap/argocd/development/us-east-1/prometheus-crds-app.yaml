@@ -2,26 +2,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app-of-apps-development
+  name: prometheus-crds-development
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/igorsilva-dev/incodetest-gitops
-    targetRevision: main
-    path: bootstrap/argocd/development/us-east-1
+    repoURL: https://github.com/prometheus-community/helm-charts.git
+    path: charts/kube-prometheus-stack/crds
+    targetRevision: kube-prometheus-stack-58.0.0
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: prometheus
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - RespectIgnoreDifferences=false
     retry:
       limit: 5
       backoff:
