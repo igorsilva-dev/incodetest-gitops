@@ -20,7 +20,7 @@ spec:
         serviceAccount:
           create: true
           name: aws-load-balancer-controller
-        vpcId: vpc-xxxxx
+        vpcId: vpc-0f32f36944c90a5e3
   destination:
     server: https://kubernetes.default.svc
     namespace: aws-load-balancer-controller
