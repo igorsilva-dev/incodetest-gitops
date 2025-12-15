@@ -27,6 +27,3 @@ spec:
   namespaceResourceWhitelist:
     - group: '*'
       kind: '*'
-  namespaceResourceBlacklist:
-    - group: 'argoproj.io'
-      kind: Application
