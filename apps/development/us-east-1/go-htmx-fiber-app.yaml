@@ -16,6 +16,8 @@ spec:
     targetRevision: "*"
     helm:      
       releaseName: go-htmx-fiber-dev
+      valuesFiles:
+        - values/go-htmx-fiber.yaml
 
   destination:
     server: https://kubernetes.default.svc

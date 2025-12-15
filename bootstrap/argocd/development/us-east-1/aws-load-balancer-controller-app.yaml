@@ -20,6 +20,8 @@ spec:
         serviceAccount:
           create: true
           name: aws-load-balancer-controller
+          annotations:
+            eks.amazonaws.com/sts-regional-endpoints: "true"
         vpcId: vpc-0f32f36944c90a5e3
         enableShield: false
         enableWaf: false
