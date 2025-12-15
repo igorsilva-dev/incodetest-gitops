@@ -18,7 +18,7 @@ spec:
         releaseName: go-htmx-fiber-dev
     - repoURL: https://github.com/igorsilva-dev/incodetest-gitops
       targetRevision: main
-      path: apps/development/us-east-1/values
+      path: apps/development/us-east-1/values/go-htmx-fiber.yaml
 
   destination:
     server: https://kubernetes.default.svc
