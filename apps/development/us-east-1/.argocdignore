@@ -1,2 +1,0 @@
-# Ignore values files - they are referenced by Application, not deployed directly
-values/
