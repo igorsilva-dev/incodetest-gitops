@@ -1,0 +1,3 @@
+# Only go-htmx-fiber-values.yaml should be applied as values
+# Ignore the Application manifest itself
+go-htmx-fiber-app.yaml
