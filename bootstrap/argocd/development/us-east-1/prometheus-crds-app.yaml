@@ -5,13 +5,13 @@ metadata:
   name: prometheus-crds-development
   namespace: argocd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argoproj.io/foreground
 spec:
   project: default
   source:
-    repoURL: https://github.com/prometheus-community/helm-charts.git
-    path: charts/kube-prometheus-stack/crds
-    targetRevision: kube-prometheus-stack-58.0.0
+    repoURL: https://github.com/igorsilva-dev/incodetest-gitops
+    targetRevision: main
+    path: bootstrap/argocd/development/us-east-1/prometheus-crds
   destination:
     server: https://kubernetes.default.svc
     namespace: prometheus
