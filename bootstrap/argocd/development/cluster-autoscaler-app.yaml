@@ -19,9 +19,9 @@ spec:
           clusterName: incodetest-cluster-development
         awsRegion: us-east-1
         rbac:
-          create: false
+          create: true
           serviceAccount:
-            create: false
+            create: true
             name: cluster-autoscaler
         extraArgs:
           v: "4"

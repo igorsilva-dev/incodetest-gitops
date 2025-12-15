@@ -17,7 +17,7 @@ spec:
       values: |
         clusterName: incodetest-cluster-development
         serviceAccount:
-          create: false
+          create: true
           name: aws-load-balancer-controller
         vpcId: vpc-xxxxx
   destination:
