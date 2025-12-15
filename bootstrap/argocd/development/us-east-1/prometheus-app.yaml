@@ -18,6 +18,7 @@ spec:
         prometheus:
           prometheusSpec:
             retention: 15d
+            storageSpec: {}
             resources:
               requests:
                 cpu: 250m
@@ -28,8 +29,7 @@ spec:
         grafana:
           adminPassword: "changeme"
           persistence:
-            enabled: true
-            size: 10Gi
+            enabled: false
           resources:
             requests:
               cpu: 100m
@@ -40,12 +40,7 @@ spec:
         alertmanager:
           enabled: true
           alertmanagerSpec:
-            storage:
-              volumeClaimTemplate:
-                spec:
-                  resources:
-                    requests:
-                      storage: 5Gi
+            storage: {}
         prometheus-node-exporter:
           enabled: true
   destination:
