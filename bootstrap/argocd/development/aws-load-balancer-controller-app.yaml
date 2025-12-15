@@ -21,6 +21,12 @@ spec:
           create: true
           name: aws-load-balancer-controller
         vpcId: vpc-0f32f36944c90a5e3
+        enableShield: false
+        enableWaf: false
+        enableWafv2: false
+        args:
+          - --aws-region=us-east-1
+          - --cluster-name=incodetest-cluster-development
   destination:
     server: https://kubernetes.default.svc
     namespace: aws-load-balancer-controller
