@@ -10,14 +10,17 @@ metadata:
 spec:  
   project: default
 
-  source:    
-    repoURL: https://igorsilva-dev.github.io/go_htmx_fiber_fullstack
-    chart: go-htmx-fiber
-    targetRevision: "*"
-    helm:      
-      releaseName: go-htmx-fiber-dev
-      valuesFiles:
-        - values/go-htmx-fiber.yaml
+  sources:
+    - repoURL: https://igorsilva-dev.github.io/go_htmx_fiber_fullstack
+      chart: go-htmx-fiber
+      targetRevision: "*"
+      helm:
+        releaseName: go-htmx-fiber-dev
+        valuesFiles:
+          - $values/apps/development/us-east-1/values/go-htmx-fiber.yaml
+    - repoURL: https://github.com/igorsilva-dev/incodetest-gitops
+      targetRevision: main
+      ref: values
 
   destination:
     server: https://kubernetes.default.svc
@@ -34,6 +37,6 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
-        
+
 
   
