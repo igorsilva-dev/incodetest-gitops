@@ -10,70 +10,67 @@ metadata:
 spec:  
   project: default
 
-  sources:
-    - repoURL: https://igorsilva-dev.github.io/go_htmx_fiber_fullstack
-      chart: go-htmx-fiber
-      targetRevision: "*"
-      helm:
-        releaseName: go-htmx-fiber-dev
-        values: |
-          replicaCount: 2
-          securityContext:
-            runAsNonRoot: true
-            fsGroup: 1000
-          service:
-            type: ClusterIP
-            port: 80
-            targetPort: 8080
-          ingress:
-            enabled: true
-          resources:
-            requests:
-              cpu: 250m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /ready
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 5
-          env:
-            - name: APP_ENV
-              value: "production"
-            - name: APP_PORT
-              value: "8080"
-            - name: DB_SSLMODE
-              value: "require"
-          autoscaling:
-            enabled: true
-            minReplicas: 2
-            maxReplicas: 5
-            targetCPUUtilizationPercentage: 80
-            targetMemoryUtilizationPercentage: 80
-          podDisruptionBudget:
-            enabled: true
-            minAvailable: 1
-          externalSecrets:
-            enabled: true
-            database:
-              name: go-htmx-fiber-dev-database-credentials
-            app:
-              name: go-htmx-fiber-dev-app-secrets
-            secretStore:
-              name: aws-secrets-store
-              provider: aws
-    - repoURL: https://github.com/igorsilva-dev/incodetest-gitops
-      targetRevision: main
-      path: apps/development/us-east-1/values
+  source:
+    repoURL: https://igorsilva-dev.github.io/go_htmx_fiber_fullstack
+    chart: go-htmx-fiber
+    targetRevision: "*"
+    helm:
+      releaseName: go-htmx-fiber-dev
+      values: |
+        replicaCount: 2
+        securityContext:
+          runAsNonRoot: true
+          fsGroup: 1000
+        service:
+          type: ClusterIP
+          port: 80
+          targetPort: 8080
+        ingress:
+          enabled: true
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 5
+        env:
+          - name: APP_ENV
+            value: "production"
+          - name: APP_PORT
+            value: "8080"
+          - name: DB_SSLMODE
+            value: "require"
+        autoscaling:
+          enabled: true
+          minReplicas: 2
+          maxReplicas: 5
+          targetCPUUtilizationPercentage: 80
+          targetMemoryUtilizationPercentage: 80
+        podDisruptionBudget:
+          enabled: true
+          minAvailable: 1
+        externalSecrets:
+          enabled: true
+          database:
+            name: go-htmx-fiber-dev-database-credentials
+          app:
+            name: go-htmx-fiber-dev-app-secrets
+          secretStore:
+            name: aws-secrets-store
+            provider: aws
 
   destination:
     server: https://kubernetes.default.svc
