@@ -8,6 +8,9 @@ spec:
   description: Default project for all applications
   sourceRepos:
     - 'https://github.com/igorsilva-dev/incodetest-gitops'
+    - 'https://igorsilva-dev.github.io/go_htmx_fiber_fullstack'
+    - 'https://kubernetes.github.io/autoscaler'
+    - 'https://aws.github.io/eks-charts'
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc

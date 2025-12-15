@@ -1,0 +1,49 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-autoscaler
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://kubernetes.github.io/autoscaler
+    chart: cluster-autoscaler
+    targetRevision: 9.54.0
+    helm:
+      releaseName: cluster-autoscaler
+      values: |
+        autoDiscovery:
+          clusterName: incodetest-cluster-development
+        awsRegion: us-east-1
+        rbac:
+          create: false
+          serviceAccount:
+            create: false
+            name: cluster-autoscaler
+        extraArgs:
+          v: "4"
+          stderrthreshold: info
+          cloud-provider: aws
+          skip-nodes-with-local-storage: "false"
+          expander: least-waste
+          node-group-auto-discovery: "asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/incodetest-cluster-development"
+          balance-similar-node-groups: "true"
+          skip-nodes-with-system-pods: "false"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cluster-autoscaler
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
